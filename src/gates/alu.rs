@@ -2,6 +2,15 @@ use crate::gates::combinatorial::{half_adder, full_adder};
 use crate::gates::Bit;
 use std::convert::TryInto;
 
+pub enum Opcode {
+    Add,
+    Sub,
+    And,
+    Or,
+    Not,
+    Neg,
+}
+
 pub fn add16(a: [Bit;16], b:[Bit;16]) -> [Bit;16] {
     let mut results = Vec::new();
     let resu = half_adder(a[0], b[0]);
@@ -14,4 +23,8 @@ pub fn add16(a: [Bit;16], b:[Bit;16]) -> [Bit;16] {
     }
     let arr: [Bit; 16] = results.try_into().expect("taille incorrecte");
     arr
+}
+
+pub fn alu(a:[Bit;16], b:[Bit;16], opcode: Opcode) -> ([Bit;16], Bit, Bit) {
+    
 }
