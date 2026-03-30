@@ -1,5 +1,6 @@
 pub type Bit = bool;
 pub mod combinatorial;
+pub mod alu;
 
 pub fn nand(a: Bit, b: Bit) -> Bit {
     !(a && b)
