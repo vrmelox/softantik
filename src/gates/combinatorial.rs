@@ -7,3 +7,7 @@ pub fn mux(a: Bit, b: Bit, s:Bit) -> Bit {
 pub fn dmux(ain: Bit, s:Bit) -> (Bit, Bit) {
     (and(ain, not(s)), and(ain, s))
 }
+
+pub fn half_adder(a: Bit, b: Bit) -> (Bit, Bit) {
+    (xor(a, b), and(a, b))
+}
