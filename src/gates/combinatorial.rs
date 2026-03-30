@@ -1,4 +1,4 @@
-use super::{and, or, not, Bit};
+use super::{and,xor, or, not, Bit};
 
 pub fn mux(a: Bit, b: Bit, s:Bit) -> Bit {
     or(and(a, not(s)), and(b, s))
