@@ -39,8 +39,18 @@ pub fn alu(a:[Bit;16], b:[Bit;16], opcode: Opcode) -> ([Bit;16], Bit, Bit) {
             let n_flag = add_result[15];
             (add_result, z_flag, n_flag)
         },
-        Opcode::Sub => 
-        Opcode::And => 
+        Opcode::Sub => {
+            let not_res = neg16(b);
+            let mut one : [Bit;16] = [false;16];
+            one[0] = true;
+            let res = add16(a, add16(not_res, one));
+            let z_flag = not(res.iter().fold(false, |acc, &bit| or(acc, bit)));
+            let n_flag = res[15];
+            (res, z_flag, n_flag)
+        },
+        Opcode::And => {
+            let mut res = 
+        }
         Opcode::Or => 
         Opcode::Not => 
         Opcode::Neg => 
