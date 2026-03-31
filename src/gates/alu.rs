@@ -12,19 +12,24 @@ pub enum Opcode {
 }
 
 pub fn add16(a: [Bit;16], b:[Bit;16]) -> [Bit;16] {
-    let mut results = Vec::new();
-    let resu = half_adder(a[0], b[0]);
-    results.insert(0, resu.0);
-    let mut carry = resu.1;
+    let mut results = [Bit::Default();16];
+    let (sum, mut carry) = half_adder(a[0], b[0]);
+    results[0] = sum;
     for i in 1..16 {
-        let  resu = full_adder(a[i], b[i], carry);
-        carry = resu.1;
-        results.insert(i, resu.0);
+        let (sum, new_carry) = full_adder(a[i], b[i], carry);
+        results[i] = sum;
+        carry = new_carry;
     }
-    let arr: [Bit; 16] = results.try_into().expect("taille incorrecte");
-    arr
+    results
 }
 
 pub fn alu(a:[Bit;16], b:[Bit;16], opcode: Opcode) -> ([Bit;16], Bit, Bit) {
-    
+    match opcode {
+        Opcode::Add => add16(a, b),
+        Opcode::Sub => 
+        Opcode::And => 
+        Opcode::Or => 
+        Opcode::Not => 
+        Opcode::Neg => 
+    }
 }
