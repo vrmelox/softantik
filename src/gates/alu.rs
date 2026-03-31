@@ -42,6 +42,16 @@ fn apply_base_gates(f: fn(Bit, Bit) -> Bit, a:[Bit;16], b:[Bit;16] ) -> ([Bit;16
     (res, z_flag, n_flag)
 }
 
+fn apply_ornot(f: fn(Bit) -> Bit, a:[Bit;16]) -> ([Bit;16], Bit, Bit) {
+    let mut res = [Bit::default();16];
+    for i in 0..16 {
+        res[i] = f(a[i]);
+    }
+    let z_flag = not(res.iter().fold(false, |acc, &bit| or(acc, bit)));
+    let n_flag = res[15];
+    (res, z_flag, n_flag)
+}
+
 pub fn alu(a:[Bit;16], b:[Bit;16], opcode: Opcode) -> ([Bit;16], Bit, Bit) {
     match opcode {
         Opcode::Add => {
@@ -65,7 +75,11 @@ pub fn alu(a:[Bit;16], b:[Bit;16], opcode: Opcode) -> ([Bit;16], Bit, Bit) {
         Opcode::Or => {
             apply_base_gates(or, a, b)
         },
-        Opcode::Not => 
-        Opcode::Neg => 
+        Opcode::Not => {
+            apply_ornot(not, a)
+        },
+        Opcode::Neg => {
+
+        }
     }
 }
