@@ -25,7 +25,12 @@ pub fn add16(a: [Bit;16], b:[Bit;16]) -> [Bit;16] {
 
 pub fn alu(a:[Bit;16], b:[Bit;16], opcode: Opcode) -> ([Bit;16], Bit, Bit) {
     match opcode {
-        Opcode::Add => add16(a, b),
+        Opcode::Add => {
+            let add_result = add16(a, b);
+            let z_flag = not(add_result.iter().fold(false, |acc, &bit| or(acc, bit)));
+            let n_flag = add_result[15];
+            (add_result, z_flag, n_flag)
+        },
         Opcode::Sub => 
         Opcode::And => 
         Opcode::Or => 
